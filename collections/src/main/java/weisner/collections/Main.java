@@ -7,7 +7,7 @@ public class Main {
             l.add(i);
         }
         l.add(3, 10);
-        System.out.print("\n\n\n");
+        System.out.print("ttttest\n\n\n");
         System.out.println(l.indexOf(10));
         l.print();
     }
