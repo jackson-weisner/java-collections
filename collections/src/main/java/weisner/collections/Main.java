@@ -2,13 +2,15 @@ import weisner.collections.*;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Integer> l = new ArrayList<Integer>(8);
-        for (int i = 0; i < 10; i++) {
-            l.add(i);
+        // LinkedList<Integer> ll = new LinkedList<Integer>();
+        // ll.add(123);
+        // ll.add(1234);
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int i = 0; i < 12; i++) {
+            list.add(i);
         }
-        l.add(3, 10);
-        System.out.print("ttttest\n\n\n");
-        System.out.println(l.indexOf(10));
-        l.print();
+        for (Integer i : list) {
+            System.out.println(i);
+        }
     }
-};
+}

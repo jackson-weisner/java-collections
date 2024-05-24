@@ -1,18 +1,20 @@
 package weisner.collections;
 
-public interface List<E> {
-    boolean add(E e);
-    void add(int index, E e);
-    E remove(int index);
-    boolean remove(E e);
+// abstract class for a generic List
+public abstract class List<E> {
+    public abstract boolean add(E e);
+    public abstract void add(int index, E e);
+    public abstract E remove(int index);
+    public abstract boolean remove(E e);
+    public abstract E get(int index);
+    public abstract boolean contains(E e);
+    public abstract int indexOf(E e);
 
-    E get(int index);
-    boolean contains(E e);
-    int indexOf(E e);
+    public boolean isEmpty() {return this.size == 0;}
+    public int size() {return this.size;}
+    protected boolean validIndex(int index) {return index >= 0 && index < this.size;};
 
-    boolean isEmpty();
-    int size();
-
+    protected int size;
     // void clear();
     // Iterator<E> iterator();
 };

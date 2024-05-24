@@ -1,8 +1,8 @@
 // This file implements an array based dynamic list
-
 package weisner.collections;
+import java.util.Iterator;
 
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> extends List<E> implements Iterable<E> {
 
     // default constructor that calls the param constructor with a default size
     public ArrayList() {
@@ -81,12 +81,12 @@ public class ArrayList<E> implements List<E> {
         return value;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
+    public int capacity() {
+        return this.capacity;
     }
-
-    public int size() {
-        return this.size;
+    
+    public Iterator<E> iterator() {
+        return new ArrayListIterator<E>(this);
     }
 
     // debug method to display this list
@@ -131,14 +131,29 @@ public class ArrayList<E> implements List<E> {
         if (this.size == this.capacity) this.expand();
     }
 
-    // helper method to verify if the index passed in is within the arrays bounds
-    private boolean validIndex(int index) {
-        return index >= 0 && index < this.size;
-    }
-
     private static final int defaultSize = 8;
     private enum Direction {LEFT, RIGHT};
     private E[] data;
     private int capacity;
-    private int size;
-};
+}
+
+class ArrayListIterator<E> implements Iterator<E> {
+    public ArrayListIterator(ArrayList<E> list) {
+        this.list = list;
+        this.index = 0;
+    }
+
+    public boolean hasNext() {
+        return this.index < this.list.size();
+    }
+
+    public E next() {
+        E data = this.list.get(this.index);
+        this.index++;
+        return data;
+    }
+
+    private E data;
+    private int index;
+    private ArrayList<E> list;
+}
