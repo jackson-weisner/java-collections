@@ -92,6 +92,10 @@ public class LinkedList<E> extends List<E> {
         return new LinkedListIterator<E>(this);
     }
 
+    public LinkedListNode<E> getHead() {
+        return this.head;
+    }
+
     private E test;
     private LinkedListNode<E> head;
     private LinkedListNode<E> tail;
@@ -100,23 +104,21 @@ public class LinkedList<E> extends List<E> {
 // linked list iterator implementation
 class LinkedListIterator<E> implements Iterator<E> {
     public LinkedListIterator(LinkedList<E> list) {
-        this.list = list;
-        this.index = 0;
+        this.cur = list.getHead();
     }
 
-    // checks if the index is within the lists bounds
+    // checks if the current node has a next
     public boolean hasNext() {
-        return this.index < this.list.size();
+        return this.cur.next != null;
     }
 
     // gets the element at the index
     // increments index
     public E next() {
-        E data = this.list.get(this.index);
-        this.index++;
+        E data = this.cur.data;
+        this.cur = this.cur.next;
         return data;
     }
 
-    private int index;
-    private LinkedList<E> list;
+    private LinkedListNode<E> cur;
 }
