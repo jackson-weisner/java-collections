@@ -1,14 +1,18 @@
 package weisner.collections;
+import java.util.Iterator;
 
 // abstract class for a generic List
-public abstract class List<E> {
-    public abstract boolean add(E e);
-    public abstract void add(int index, E e);
+public abstract class List<E> implements Iterable<E> {
+    public abstract void addBack(E e);
+    public abstract void addFront(E e);
+    public abstract void add(E e);
+    public abstract void insert(E e, int index);
     public abstract E remove(int index);
     public abstract boolean remove(E e);
     public abstract E get(int index);
     public abstract boolean contains(E e);
     public abstract int indexOf(E e);
+    public abstract Iterator<E> iterator();
 
     public boolean isEmpty() {return this.size == 0;}
     public int size() {return this.size;}
@@ -16,5 +20,4 @@ public abstract class List<E> {
 
     protected int size;
     // void clear();
-    // Iterator<E> iterator();
 };

@@ -2,7 +2,7 @@
 package weisner.collections;
 import java.util.Iterator;
 
-public class ArrayList<E> extends List<E> implements Iterable<E> {
+public class ArrayList<E> extends List<E> {
 
     // default constructor that calls the param constructor with a default size
     public ArrayList() {
@@ -18,17 +18,24 @@ public class ArrayList<E> extends List<E> implements Iterable<E> {
         this.capacity = size;
     }
 
+    public void addBack(E e) {
+        this.add(e);
+    }
+
+    public void addFront(E e) {
+        this.insert(e, 0);
+    }
+
     // adds an element to the list
-    public boolean add(E e) {
+    public void add(E e) {
         this.checkSpace();
         this.data[this.size] = e;
         this.size++;
-        return true;
     }
 
     // shifts the array RIGHT around the index
     // inserts the element at the new spot
-    public void add(int index, E e) {
+    public void insert(E e, int index) {
         this.checkSpace(); 
         if (!this.validIndex(index)) return;
         this.shift(index, Direction.RIGHT);
@@ -143,17 +150,18 @@ class ArrayListIterator<E> implements Iterator<E> {
         this.index = 0;
     }
 
+    // checks if there is another element
     public boolean hasNext() {
         return this.index < this.list.size();
     }
 
+    // returns the element at the current index
     public E next() {
         E data = this.list.get(this.index);
         this.index++;
         return data;
     }
 
-    private E data;
     private int index;
     private ArrayList<E> list;
 }
