@@ -42,25 +42,27 @@ public class LinkedList<E> extends List<E> {
 
     // a default add method that adds to the front of the list
     public void add(E e) {
-        this.addFront(e);
+        this.addBack(e);
     }
 
     // traverses the linked list and inserts the element at the specified index
     public void insert(E e, int index) {
         if (!this.validIndex(index)) return;
 
-        // checks if element should be inserted at the front
+        // checks if element should be inserted at the front or back
         if (index == 0) {
             this.addFront(e);
-            return;
+        } else if (index == this.size - 1) {
+            this.addBack(e);
+        } else {
+            // traverse the linked list
+            LinkedListNode<E> cur = this.head;
+            for (int i = 0; i < index-1; i++) {
+                cur = cur.next;
+            }
+            cur.next = new LinkedListNode<E>(e, cur.next);
+            this.size++;
         }
-
-        // traverse the linked list
-        LinkedListNode<E> cur = this.head;
-        for (int i = 0; i < index-1; i++) {
-            cur = cur.next;
-        }
-        cur.next = new LinkedListNode<E>(e, cur.next);
     }
 
     public void print() {
@@ -71,12 +73,21 @@ public class LinkedList<E> extends List<E> {
         }
     }
 
-    public E remove(int index) {return this.test;}
+    public E remove(int index) { 
+        if (!this.validIndex(index)) return null;
+        LinkedListNode<E> prev = null;
+        LinkedListNode<E> cur = this.head;
+        for (int i = 0; i < index+1; i++) {
+            cur = cur.next;
+        }
+        return cur.data;
+    }
     public boolean remove(E e) {return true;}
 
     // traverses the linked list and returns value at the index passed in
     public E get(int index) {
         if (!this.validIndex(index)) return null;
+        if (index == 0) return this.head.data;
 
         // traverse the list
         LinkedListNode<E> cur = this.head;
@@ -85,8 +96,26 @@ public class LinkedList<E> extends List<E> {
         }
         return cur.data;
     }
-    public boolean contains(E e) {return true;}
-    public int indexOf(E e) {return 0;}
+
+    // linear search
+    public boolean contains(E e) {
+        LinkedListNode<E> cur = this.head;
+        while (cur != null) {
+            if (cur.data == e) return true;
+            cur = cur.next;
+        }
+        return false;
+    }
+
+    // linear search
+    public int indexOf(E e) {
+        LinkedListNode<E> cur = this.head;
+        for (int i = 0; cur != null; i++) {
+            if (cur.data == e) return i;
+            cur = cur.next;
+        } 
+        return -1;
+    }
 
     public Iterator<E> iterator() {
         return new LinkedListIterator<E>(this);
@@ -109,7 +138,7 @@ class LinkedListIterator<E> implements Iterator<E> {
 
     // checks if the current node has a next
     public boolean hasNext() {
-        return this.cur.next != null;
+        return this.cur != null;
     }
 
     // gets the element at the index
