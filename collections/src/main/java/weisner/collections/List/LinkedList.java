@@ -75,14 +75,21 @@ public class LinkedList<E> extends List<E> {
 
     public E remove(int index) { 
         if (!this.validIndex(index)) return null;
+        if (index == 0) {
+            E data = this.head.data;
+            this.head = this.head.next;
+            this.size--;
+            return data;
+        }
         LinkedListNode<E> prev = null;
         LinkedListNode<E> cur = this.head;
         for (int i = 0; i < index+1; i++) {
             cur = cur.next;
         }
+        this.size--;
         return cur.data;
     }
-    public boolean remove(E e) {return true;}
+    // public boolean remove(E e) {return true;}
 
     // traverses the linked list and returns value at the index passed in
     public E get(int index) {

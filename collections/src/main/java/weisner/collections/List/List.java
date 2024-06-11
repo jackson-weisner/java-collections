@@ -8,7 +8,7 @@ public abstract class List<E> implements Iterable<E> {
     public abstract void add(E e);
     public abstract void insert(E e, int index);
     public abstract E remove(int index);
-    public abstract boolean remove(E e);
+    // public abstract boolean remove(E e);
     public abstract E get(int index);
     public abstract boolean contains(E e);
     public abstract int indexOf(E e);
