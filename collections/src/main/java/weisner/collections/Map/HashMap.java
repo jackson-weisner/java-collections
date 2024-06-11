@@ -13,6 +13,18 @@ public class HashMap<K,V> extends Map<K,V> {
         this.size = 0;
     }
 
+    public boolean contains(K key) {
+        return this.get(key) != null;
+    }
+
+    // change the value in the HashMapNode
+    public void replace(K key, V value) {
+        HashMapNode<K,V> node = this.getNode(key);
+        if (node != null) {
+            this.getNode(key).value = value;
+        }
+    }
+
     // inserts the key value pair into the hash map
     // chains to the previous node if there was one already there
     public void put(K key, V value) {
@@ -25,29 +37,47 @@ public class HashMap<K,V> extends Map<K,V> {
 
     // hashes the key and checks the hash table for an entry
     // checks all keys in the chained list
-    public V get(K key) {
+    // returns a node, for easy use in the get() method and replace() method
+    private HashMapNode<K,V> getNode(K key) {
         int index = this.hash(key);
-        int hash = key.hashCode();
 
         HashMapNode<K,V> cur = this.array[index];
 
         if (cur == null) return null;
         while (cur.next != null) {
-            if (cur.hash == hash) return cur.value;
+            if (cur.equal(key)) {
+                return cur;
+            }
             cur = cur.next;
         }
-        return cur.value;
+        return (cur.equal(key)) ? cur : null;
+    }
+
+    public V get(K key) {
+        HashMapNode<K,V> node = this.getNode(key);
+        return (node == null) ? null : node.value;
     }
 
     // remove a item from the hash map
     public V remove(K key) {
         int index = this.hash(key);
-        HashMapNode<K,V> cur = this.array[index];
-        HashMapNode<K,V> prev = null;
+        HashMapNode<K,V> prev = null, cur = this.array[index];
+
+        // checks if the hash node is at the index (not part of the chain)
+        if (cur.equal(key)) {
+            V v = (V)this.array[index].value;
+            this.array[index] = this.array[index].next;
+            this.size--;
+            return v;
+        }
+
+        // loops over the chained nodes until the key is found
         while (cur.next != null) {
+            if (cur.equal(key)) break;
             prev = cur;
             cur = cur.next;
         }
+        prev.next = cur.next;
         this.size--;
         return cur.value;
     }
@@ -75,13 +105,16 @@ public class HashMap<K,V> extends Map<K,V> {
             this.hash = hash;
         }
 
+        // tests if a key is equal to this hash node's hash value
+        public boolean equal(K key) {return this.hash == key.hashCode();}
+
         public int hash;
         public K key;
         public V value;
         public HashMapNode<K,V> next;
     }
 
-    public static final int defaultSize = 15;
+    public static final int defaultSize = 25;
     private int arraySize;
     private int size;
     private HashMapNode[] array;

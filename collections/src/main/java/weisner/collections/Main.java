@@ -17,9 +17,13 @@ public class Main {
         for (int i = 0; i < 20; i++) {
             m.put(i, i);
         }
-        for (int i = 0; i < 20; i++) {
-            System.out.println(m.get(i));
-        }
+            System.out.println(m.contains(10));
+            System.out.println(m.get(10));
+        // System.out.println(m.remove(10));
+        m.put(88, 999);
+        // for (int i = 0; i < 21; i++) {
+        // }
+
         // m.print();
     }
 }
