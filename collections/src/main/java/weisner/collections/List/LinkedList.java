@@ -80,12 +80,13 @@ public class LinkedList<E> extends List<E> {
             this.head = this.head.next;
             this.size--;
             return data;
-        }
+        } 
         LinkedListNode<E> prev = null;
         LinkedListNode<E> cur = this.head;
-        for (int i = 0; i < index+1; i++) {
+        for (int i = 0; i < index; i++) {
             cur = cur.next;
         }
+        prev.next = cur.next;
         this.size--;
         return cur.data;
     }

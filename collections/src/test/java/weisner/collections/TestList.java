@@ -133,6 +133,20 @@ class TestAdd extends ListFactory {
         }
         assertEquals(list.size(), 12);
     }
+
+    @ParameterizedTest
+    @MethodSource("listFactory")
+    public void removeAndAdd(List<Integer> list) {
+        assertEquals(list.size(), 0);
+        list.remove(0);
+        assertEquals(list.size(), 0);
+        list.add(1);
+        list.add(2);
+        assertEquals(list.get(0), 1);
+        assertEquals(list.get(1), 2);
+        list.remove(1);
+        assertEquals(list.get(0), 1);
+    }
 }
 
 class TestInsert extends ListFactory {}

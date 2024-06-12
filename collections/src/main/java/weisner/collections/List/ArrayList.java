@@ -52,18 +52,18 @@ public class ArrayList<E> extends List<E> {
         return e;
     }
 
-    // remove elements that are equal to e
-    // shifts the array LEFT around elements that are == e
-    public boolean remove(E e) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.data[i] == e) {
-                this.shift(i, Direction.LEFT);
-                this.size--;
-                return true;
-            }
-        }
-        return false;
-    }
+    // // remove elements that are equal to e
+    // // shifts the array LEFT around elements that are == e
+    // public boolean remove(E e) {
+    //     for (int i = 0; i < this.size; i++) {
+    //         if (this.data[i] == e) {
+    //             this.shift(i, Direction.LEFT);
+    //             this.size--;
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     // linear search over the array
     public boolean contains(E e) {
