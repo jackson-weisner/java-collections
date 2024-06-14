@@ -16,7 +16,9 @@ public abstract class List<E> implements Iterable<E> {
 
     public boolean isEmpty() {return this.size == 0;}
     public int size() {return this.size;}
-    protected boolean validIndex(int index) {return index >= 0 && index < this.size;};
+    protected boolean validIndex(int index) {
+        return (index >= 0 && index < this.size) || (index == 0 && this.size == 0);
+    };
 
     protected int size;
     // void clear();

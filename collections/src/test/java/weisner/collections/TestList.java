@@ -138,7 +138,17 @@ class TestAdd extends ListFactory {
     }
 }
 
-class TestInsert extends ListFactory {}
+class TestInsert extends ListFactory {
+    // insert into an empty list
+    @ParameterizedTest
+    @MethodSource("listFactory")
+    public void basicTest(List<Integer> list) {
+        list.insert(-1, -1);
+        assertEquals(0, list.size());
+        list.insert(0, 0);
+        assertEquals(0, list.get(0));
+    }
+}
 
 
 class TestRemove extends ListFactory {
