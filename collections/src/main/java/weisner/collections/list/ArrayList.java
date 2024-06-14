@@ -1,5 +1,5 @@
 // This file implements an array based dynamic list
-package weisner.collections;
+package weisner.collections.list;
 import java.util.Iterator;
 
 public class ArrayList<E> extends List<E> {

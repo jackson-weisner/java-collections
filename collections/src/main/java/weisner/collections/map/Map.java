@@ -1,4 +1,4 @@
-package weisner.collections;
+package weisner.collections.map;
 
 public abstract class Map<K,V> {
     public abstract V get(K key);

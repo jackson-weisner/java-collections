@@ -1,11 +1,12 @@
-import weisner.collections.*;
+package weisner.collections;
+import weisner.collections.list.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 abstract class ListFactory {
     // @ParameterizedTest
@@ -58,7 +59,32 @@ abstract class ListFactory {
     }
 }
 
-class TestGet extends ListFactory {}
+class TestGet extends ListFactory {
+    @ParameterizedTest
+    @MethodSource("listFactory")
+    public void afterInit(List<Integer> list) {
+        assertNull(list.get(0));
+        assertNull(list.get(-1));
+    }
+
+    @ParameterizedTest
+    @MethodSource("listFactory")
+    public void addingAndGetting(List<Integer> list) {
+        list.add(999);
+        assertEquals(999, list.get(0));
+        list.add(123);
+        assertEquals(123, list.get(1));
+    }
+
+    @ParameterizedTest
+    @MethodSource("listFactory")
+    public void removeAndGet(List<Integer> list) {
+        list.add(999);
+        assertEquals(999, list.get(0));
+        list.remove(0);
+        assertNull(list.get(0));
+    }
+}
 
 class TestIsEmpty extends ListFactory {
     // check that the list is empty after the constructor 
@@ -96,7 +122,7 @@ class TestSize extends ListFactory {
     @ParameterizedTest
     @MethodSource("listFactory")
     public void basicTest(List<Integer> list) {
-        assertEquals(list.size(), 0);
+        assertEquals(0, list.size());
     }
 
     // add elements and see if the size is correct
@@ -105,7 +131,7 @@ class TestSize extends ListFactory {
     public void addingElements(List<Integer> list) {
         for (int i = 0; i < 10; i++) {
             list.add(i);
-            assertEquals(list.size(), i+1);
+            assertEquals(i+1, list.size());
         }
     }
 
@@ -114,11 +140,11 @@ class TestSize extends ListFactory {
     @MethodSource("listFactory")
     public void removingElements(List<Integer> list) {
         list.add(999);
-        assertEquals(list.size(), 1);
+        assertEquals(1, list.size());
         for (int i = 0; i < 3; i++) {
             list.remove(0);
         }
-        assertEquals(list.size(), 0);
+        assertEquals(0, list.size());
     }
 }
 
@@ -129,27 +155,34 @@ class TestAdd extends ListFactory {
     public void add(List<Integer> list) {
         for (int i = 0; i < 12; i++) {
             list.add(i);
-            assertEquals(list.get(i), (Integer)i);
+            assertEquals((Integer)i, list.get(i));
         }
-        assertEquals(list.size(), 12);
+        assertEquals(12, list.size());
     }
 
     @ParameterizedTest
     @MethodSource("listFactory")
     public void removeAndAdd(List<Integer> list) {
-        assertEquals(list.size(), 0);
+        assertEquals(0, list.size());
         list.remove(0);
-        assertEquals(list.size(), 0);
+        assertEquals(0, list.size());
         list.add(1);
         list.add(2);
-        assertEquals(list.get(0), 1);
-        assertEquals(list.get(1), 2);
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
         list.remove(1);
-        assertEquals(list.get(0), 1);
+        assertEquals(1, list.get(0));
     }
 }
 
 class TestInsert extends ListFactory {}
 
 
-class TestRemove extends ListFactory {}
+class TestRemove extends ListFactory {
+    @ParameterizedTest
+    @MethodSource("listFactory")
+    public void basicTest(List<Integer> list) {
+        assertNull(list.remove(0));
+        assertEquals(0, list.size());
+    }
+}

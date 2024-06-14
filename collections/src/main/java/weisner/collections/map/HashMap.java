@@ -1,4 +1,4 @@
-package weisner.collections;
+package weisner.collections.map;
 
 
 public class HashMap<K,V> extends Map<K,V> {

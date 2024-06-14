@@ -1,4 +1,4 @@
-package weisner.collections;
+package weisner.collections.list;
 import java.util.Iterator;
 
 // node class for the linked list
@@ -84,6 +84,7 @@ public class LinkedList<E> extends List<E> {
         LinkedListNode<E> prev = null;
         LinkedListNode<E> cur = this.head;
         for (int i = 0; i < index; i++) {
+            prev = cur;
             cur = cur.next;
         }
         prev.next = cur.next;

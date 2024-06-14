@@ -1,4 +1,4 @@
-package weisner.collections;
+package weisner.collections.list;
 import java.util.Iterator;
 
 // abstract class for a generic List
