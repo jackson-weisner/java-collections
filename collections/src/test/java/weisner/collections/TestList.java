@@ -8,49 +8,9 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// this abstract class is used for extending the listFactory method to the rest of the
+// test classes
 abstract class ListFactory {
-    // @ParameterizedTest
-    // @MethodSource("listFactory")
-    // public void testInit(List<Integer> list) {
-    //     assertEquals(list.size(), 0);
-    //     // assertEquals(list.capacity(), 8);
-    // }
-
-
-
-    // @ParameterizedTest
-    // @MethodSource("listFactory")
-    // public void insert(List<Integer> list) {
-    //     // assertEquals(list.size(), 0);
-    //     // list.insert(999, -1);
-    //     // list.insert(999, 2);
-    //     // assertEquals(list.size(), 0);
-
-    //     // list.insert(999, 0);
-    //     // assertEquals(list.get(0), 999);
-    // }
-
-    // @ParameterizedTest
-    // @MethodSource("listFactory")
-    // public void remove(List<Integer> list) {
-
-    // }
-
-
-    // @ParameterizedTest
-    // @MethodSource("listFactory")
-    // public void contains(List<Integer> list) {
-
-    // }
-
-    // @ParameterizedTest
-    // @MethodSource("listFactory")
-    // public void indexOf(List<Integer> list) {
-    //     assertEquals(list.indexOf(999), -1);
-
-    // }
-
-
     private static Stream<List<Integer>> listFactory() {
         return Stream.of(
             new ArrayList<Integer>(),
@@ -150,6 +110,7 @@ class TestSize extends ListFactory {
 
 
 class TestAdd extends ListFactory {
+    // basic add test
     @ParameterizedTest
     @MethodSource("listFactory")
     public void add(List<Integer> list) {
@@ -160,6 +121,8 @@ class TestAdd extends ListFactory {
         assertEquals(12, list.size());
     }
 
+    // remove items from the list
+    // then try adding
     @ParameterizedTest
     @MethodSource("listFactory")
     public void removeAndAdd(List<Integer> list) {
@@ -179,10 +142,23 @@ class TestInsert extends ListFactory {}
 
 
 class TestRemove extends ListFactory {
+    // test that no elements can be removed
     @ParameterizedTest
     @MethodSource("listFactory")
     public void basicTest(List<Integer> list) {
+        assertEquals(0, list.size());
         assertNull(list.remove(0));
         assertEquals(0, list.size());
+    }
+
+    // add items then remove them
+    @ParameterizedTest
+    @MethodSource("listFactory")
+    public void addThenRemove(List<Integer> list) {
+        assertEquals(0, list.size());
+        list.add(999);
+        list.insert(888, 0);
+        assertEquals(2, list.size());
+        assertEquals(888, list.remove(0));
     }
 }
