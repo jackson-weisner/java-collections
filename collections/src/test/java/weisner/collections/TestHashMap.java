@@ -60,8 +60,43 @@ class TestContains extends TestHashMap {
 
 
 class TestMapRemove extends TestHashMap {
+    // try to remove a pair from an empty hash map
     @Test
     public void basicTest() {
+        assertEquals(0, map.size());
+        assertNull(map.remove(0));
+        assertEquals(0, map.size());
+    }
 
+    // put a pair then remove it
+    @Test
+    public void addThenRemove() {
+        map.put(0,0);
+        assertEquals(1, map.size());
+        assertEquals(0, map.remove(0));
+        assertEquals(0, map.size());
+    }
+}
+
+class TestMapReplace extends TestHashMap {
+    // try to replace a key value pair in an empty hashmap
+    @Test
+    public void basicTest() {
+        map.replace(0,0);
+        assertEquals(0, map.size());
+    }
+
+    @Test
+    public void replacePair() {
+        map.put(0,0);
+        this.helper(1, 0);
+        map.replace(0, 1);
+        this.helper(1,1);
+
+    }
+
+    private void helper(int a, int b) {
+        assertEquals(a, map.size());
+        assertEquals(b, map.get(0));
     }
 }

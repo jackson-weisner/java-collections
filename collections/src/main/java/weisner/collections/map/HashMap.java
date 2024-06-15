@@ -61,6 +61,7 @@ public class HashMap<K,V> extends Map<K,V> {
 
     // remove a item from the hash map
     public V remove(K key) {
+        if (this.get(key) == null) return null;
         int index = this.hash(key);
         HashMapNode<K,V> prev = null, cur = this.array[index];
 
