@@ -86,6 +86,8 @@ class TestMapReplace extends TestHashMap {
         assertEquals(0, map.size());
     }
 
+    // replace a key value pair that is in the hash map
+    // test if the value is correct
     @Test
     public void replacePair() {
         map.put(0,0);
