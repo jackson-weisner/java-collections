@@ -47,7 +47,7 @@ public class LinkedList<E> extends List<E> {
 
     // traverses the linked list and inserts the element at the specified index
     public void insert(E e, int index) {
-        if (!this.validIndex(index)) return;
+        if (!this.validIndex(index) && !(index == 0 && this.size == 0)) return;
 
         // checks if element should be inserted at the front or back
         if (index == 0) {
@@ -96,7 +96,7 @@ public class LinkedList<E> extends List<E> {
     // traverses the linked list and returns value at the index passed in
     public E get(int index) {
         if (!this.validIndex(index)) return null;
-        if (index == 0) return this.head.data;
+        if (index == 0) return (this.size == 0) ? null : this.head.data;
 
         // traverse the list
         LinkedListNode<E> cur = this.head;

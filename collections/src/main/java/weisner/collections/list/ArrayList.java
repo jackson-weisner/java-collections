@@ -36,7 +36,13 @@ public class ArrayList<E> extends List<E> {
     // shifts the array RIGHT around the index
     // inserts the element at the new spot
     public void insert(E e, int index) {
-        this.checkSpace(); 
+        if (this.size == 0 && index == 0) {
+            this.data[0] = e;
+            this.size++;
+            return;
+        }
+        this.checkSpace();
+
         if (!this.validIndex(index)) return;
         this.shift(index, Direction.RIGHT);
         this.data[index] = e;
