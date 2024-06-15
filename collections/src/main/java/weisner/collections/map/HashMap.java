@@ -28,6 +28,7 @@ public class HashMap<K,V> extends Map<K,V> {
     // inserts the key value pair into the hash map
     // chains to the previous node if there was one already there
     public void put(K key, V value) {
+        if (this.get(key) != null) return;
         int index = this.hash(key);
         HashMapNode<K,V> prev = this.array[index];
         HashMapNode<K,V> newNode = new HashMapNode<K,V>(key, value, key.hashCode(), prev);
@@ -116,7 +117,6 @@ public class HashMap<K,V> extends Map<K,V> {
 
     public static final int defaultSize = 25;
     private int arraySize;
-    private int size;
     private HashMapNode[] array;
 }
 
